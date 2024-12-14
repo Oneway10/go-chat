@@ -1,12 +1,15 @@
 package main
 
 import (
+	"chat/config"
 	"chat/dal/mysql"
 	"context"
+
 	"gorm.io/gen"
 )
 
 func main() {
+	config.Init()
 	mysql.Init()
 	db := mysql.DB(context.Background())
 

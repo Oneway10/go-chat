@@ -20,6 +20,7 @@ func Init() {
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("./")
 	viper.AddConfigPath("./conf")
+	viper.AddConfigPath("../../conf")
 	err := viper.ReadInConfig()
 	if err != nil {
 		hlog.Fatal("error reading config file, %s", err)
@@ -29,7 +30,7 @@ func Init() {
 }
 
 func loadMysqlConfig() *mysqlConfig {
-	s := "Mysql"
+	s := "Mysql."
 	return &mysqlConfig{
 		ServerHost: viper.GetString(s + "ServerHost"),
 		ServerPort: viper.GetString(s + "ServerPort"),

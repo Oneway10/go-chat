@@ -5,6 +5,8 @@ package main
 import (
 	"chat/common/logs"
 	"chat/config"
+	"chat/dal/mysql"
+
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
@@ -13,6 +15,7 @@ func main() {
 
 	logs.Init()   // 日志初始化
 	config.Init() // 配置初始化
+	mysql.Init()
 
 	register(h) // 注册路由
 	h.Spin()
