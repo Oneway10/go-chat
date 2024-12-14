@@ -1,5 +1,3 @@
-namespace go user
-
 include "base.thrift"
 
 struct LoginRequest {

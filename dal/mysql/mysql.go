@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"chat/config"
+	"chat/dal/dao"
 	"context"
 	"fmt"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -39,6 +40,7 @@ func Init() {
 			panic(err)
 		}
 		db = DB
+		dao.SetDefault(db)
 		hlog.Info("init mysql success")
 	})
 }
