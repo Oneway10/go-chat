@@ -1,0 +1,6 @@
+Mysql:
+  ServerHost: 127.0.0.1
+  ServerPort: 3306
+  Username: root
+  Password:
+  Database:
