@@ -3,9 +3,6 @@ ProjectPath = ..\go-chat\biz
 gen:
 	go mod tidy
 
-gen-model:
-	go run ./cmd/generate/
-
 build:
 	go build .
 

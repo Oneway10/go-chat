@@ -15,6 +15,16 @@ import (
 	"gorm.io/plugin/dbresolver"
 )
 
+var (
+	Q    = new(Query)
+	User *user
+)
+
+func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
+	*Q = *Use(db, opts...)
+	User = &Q.User
+}
+
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
 		db:   db,

@@ -16,7 +16,7 @@ func main() {
 	g := gen.NewGenerator(gen.Config{
 		OutPath:       "../../dal/dao",
 		ModelPkgPath:  "../../dal/model",
-		Mode:          gen.WithoutContext,
+		Mode:          gen.WithDefaultQuery,
 		FieldNullable: true,
 	})
 
