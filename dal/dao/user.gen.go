@@ -32,6 +32,8 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	_user.Password = field.NewString(tableName, "password")
 	_user.Email = field.NewString(tableName, "email")
 	_user.Phone = field.NewString(tableName, "phone")
+	_user.Avatar = field.NewString(tableName, "avatar")
+	_user.Description = field.NewString(tableName, "description")
 	_user.CreateTime = field.NewTime(tableName, "create_time")
 	_user.UpdateTime = field.NewTime(tableName, "update_time")
 	_user.IsDeleted = field.NewInt32(tableName, "is_deleted")
@@ -45,15 +47,17 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 type user struct {
 	userDo userDo
 
-	ALL        field.Asterisk
-	ID         field.Int64
-	Name       field.String // 用户名
-	Password   field.String // 密码
-	Email      field.String // 邮箱
-	Phone      field.String // 手机号
-	CreateTime field.Time   // 创建时间
-	UpdateTime field.Time   // 更新时间
-	IsDeleted  field.Int32  // 0-未删除,1-已删除
+	ALL         field.Asterisk
+	ID          field.Int64
+	Name        field.String // 用户名
+	Password    field.String // 密码
+	Email       field.String // 邮箱
+	Phone       field.String // 手机号
+	Avatar      field.String // 头像链接
+	Description field.String // 介绍
+	CreateTime  field.Time   // 创建时间
+	UpdateTime  field.Time   // 更新时间
+	IsDeleted   field.Int32  // 0-未删除,1-已删除
 
 	fieldMap map[string]field.Expr
 }
@@ -75,6 +79,8 @@ func (u *user) updateTableName(table string) *user {
 	u.Password = field.NewString(table, "password")
 	u.Email = field.NewString(table, "email")
 	u.Phone = field.NewString(table, "phone")
+	u.Avatar = field.NewString(table, "avatar")
+	u.Description = field.NewString(table, "description")
 	u.CreateTime = field.NewTime(table, "create_time")
 	u.UpdateTime = field.NewTime(table, "update_time")
 	u.IsDeleted = field.NewInt32(table, "is_deleted")
@@ -102,12 +108,14 @@ func (u *user) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (u *user) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 8)
+	u.fieldMap = make(map[string]field.Expr, 10)
 	u.fieldMap["id"] = u.ID
 	u.fieldMap["name"] = u.Name
 	u.fieldMap["password"] = u.Password
 	u.fieldMap["email"] = u.Email
 	u.fieldMap["phone"] = u.Phone
+	u.fieldMap["avatar"] = u.Avatar
+	u.fieldMap["description"] = u.Description
 	u.fieldMap["create_time"] = u.CreateTime
 	u.fieldMap["update_time"] = u.UpdateTime
 	u.fieldMap["is_deleted"] = u.IsDeleted

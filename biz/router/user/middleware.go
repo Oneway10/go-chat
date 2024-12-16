@@ -3,6 +3,7 @@
 package user
 
 import (
+	"chat/common/auth"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -19,4 +20,20 @@ func _loginMw() []app.HandlerFunc {
 func _registerMw() []app.HandlerFunc {
 	// your code...
 	return nil
+}
+
+func _userMw() []app.HandlerFunc {
+	// your
+	return nil
+}
+
+func _getuserinfoMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _authMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		auth.JwtMiddleware.MiddlewareFunc(),
+	}
 }

@@ -27,7 +27,7 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp, err = LoginHandle(ctx, req)
+	resp, err = LoginHandler(ctx, req)
 	resp.BaseResp = resp_util.GenBaseResp(err)
 	c.JSON(consts.StatusOK, resp)
 }
@@ -46,7 +46,26 @@ func Register(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp, err = RegisterHandle(ctx, req)
+	resp, err = RegisterHandler(ctx, req)
+	resp.BaseResp = resp_util.GenBaseResp(err)
+	c.JSON(consts.StatusOK, resp)
+}
+
+// GetUserInfo .
+// @router /user/get [GET]
+func GetUserInfo(ctx context.Context, c *app.RequestContext) {
+	var (
+		err  error
+		req  = user.NewGetUserInfoRequest()
+		resp = user.NewGetUserInfoResponse()
+	)
+
+	if err = c.BindAndValidate(req); err != nil {
+		resp.BaseResp = resp_util.GenBaseResp(errorx.NewWithCode(consts.StatusBadRequest, "参数错误"))
+		c.JSON(consts.StatusOK, resp)
+		return
+	}
+	resp, err = GetUserInfoHandler(ctx, req)
 	resp.BaseResp = resp_util.GenBaseResp(err)
 	c.JSON(consts.StatusOK, resp)
 }

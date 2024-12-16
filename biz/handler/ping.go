@@ -3,8 +3,9 @@
 package handler
 
 import (
+	"chat/common/auth"
+	"chat/dal/model"
 	"context"
-
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
@@ -12,7 +13,23 @@ import (
 
 // Ping .
 func Ping(ctx context.Context, c *app.RequestContext) {
-	c.JSON(consts.StatusOK, utils.H{
-		"message": "pong",
-	})
+	u, ok := c.Get(auth.IdentityKey)
+	userInfo := u.(*model.User)
+	if !ok {
+		c.JSON(consts.StatusOK, utils.H{
+			"BaseResp": utils.H{
+				"StatusCode":    401,
+				"StatusMessage": "Invalid Token",
+			},
+		})
+	} else {
+		c.JSON(consts.StatusOK, utils.H{
+			"userID":   userInfo.ID,
+			"userName": userInfo.Name,
+			"BaseResp": utils.H{
+				"StatusCode":    0,
+				"StatusMessage": "",
+			},
+		})
+	}
 }

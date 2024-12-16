@@ -3,7 +3,7 @@
 package main
 
 import (
-	"chat/common/logs"
+	"chat/common/auth"
 	"chat/config"
 	"chat/dal"
 	"context"
@@ -14,9 +14,10 @@ import (
 func main() {
 	h := server.Default()
 
-	logs.Init()                    // 日志初始化
+	//logs.Init()                    // 日志初始化
 	config.Init()                  // 配置初始化
 	dal.Init(context.Background()) // 数据库初始化
+	auth.Init()                    // jwt 初始化
 
 	register(h) // 注册路由
 	h.Spin()

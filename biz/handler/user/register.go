@@ -9,7 +9,7 @@ import (
 	"context"
 )
 
-func RegisterHandle(ctx context.Context, req *user.RegisterRequest) (*user.RegisterResponse, error) {
+func RegisterHandler(ctx context.Context, req *user.RegisterRequest) (*user.RegisterResponse, error) {
 	resp := user.NewRegisterResponse()
 	if req.Name == "" {
 		return nil, errorx.New("用户名不能为空")
