@@ -20,8 +20,11 @@ func (u *userRepo) IsNameExist(ctx context.Context, name string, q ...*dao.Query
 		tx.User.IsDeleted.Eq(0),
 	}
 	data, err := tx.User.WithContext(ctx).Where(cond...).First()
-	if err != nil || data == nil {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return false, err
+	}
+	if data == nil {
+		return false, nil
 	}
 	return true, nil
 }
