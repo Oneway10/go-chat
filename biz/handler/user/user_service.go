@@ -59,13 +59,13 @@ func GetUserInfo(ctx context.Context, c *app.RequestContext) {
 		req  = user.NewGetUserInfoRequest()
 		resp = user.NewGetUserInfoResponse()
 	)
-
 	if err = c.BindAndValidate(req); err != nil {
 		resp.BaseResp = resp_util.GenBaseResp(errorx.NewWithCode(consts.StatusBadRequest, "参数错误"))
 		c.JSON(consts.StatusOK, resp)
 		return
 	}
-	resp, err = GetUserInfoHandler(ctx, req)
+
+	resp, err = GetUserInfoHandler(ctx, c, req)
 	resp.BaseResp = resp_util.GenBaseResp(err)
 	c.JSON(consts.StatusOK, resp)
 }
